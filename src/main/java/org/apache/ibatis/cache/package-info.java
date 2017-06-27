@@ -14,6 +14,6 @@
  *    limitations under the License.
  */
 /**
- * Base package for caching stuff
+ * 缓存内容的基本包
  */
 package org.apache.ibatis.cache;
