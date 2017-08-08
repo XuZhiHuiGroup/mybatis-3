@@ -16,10 +16,13 @@
 package org.apache.ibatis.builder.annotation;
 
 import java.lang.reflect.Method;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public class MethodResolver {
   private final MapperAnnotationBuilder annotationBuilder;
   private Method method;

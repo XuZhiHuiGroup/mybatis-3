@@ -20,10 +20,13 @@ import java.util.Map;
 import org.apache.ibatis.parsing.GenericTokenParser;
 import org.apache.ibatis.parsing.TokenHandler;
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ForEachSqlNode implements SqlNode {
   public static final String ITEM_PREFIX = "__frch_";
 

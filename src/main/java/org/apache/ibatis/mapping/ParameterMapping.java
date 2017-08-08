@@ -21,10 +21,13 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ParameterMapping {
 
   private Configuration configuration;

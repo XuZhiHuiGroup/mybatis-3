@@ -21,10 +21,13 @@ import org.apache.ibatis.parsing.GenericTokenParser;
 import org.apache.ibatis.parsing.TokenHandler;
 import org.apache.ibatis.scripting.ScriptingException;
 import org.apache.ibatis.type.SimpleTypeRegistry;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class TextSqlNode implements SqlNode {
   private String text;
   private Pattern injectionFilter;

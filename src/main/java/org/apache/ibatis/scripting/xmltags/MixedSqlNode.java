@@ -16,10 +16,13 @@
 package org.apache.ibatis.scripting.xmltags;
 
 import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class MixedSqlNode implements SqlNode {
   private List<SqlNode> contents;
 

@@ -28,10 +28,13 @@ import org.apache.ibatis.scripting.defaults.RawSqlSource;
 import org.apache.ibatis.session.Configuration;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class XMLScriptBuilder extends BaseBuilder {
 
   private XNode context;

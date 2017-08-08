@@ -24,12 +24,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Properties;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * A class to simplify access to resources through the classloader.
  *
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class Resources {
 
   private static ClassLoaderWrapper classLoaderWrapper = new ClassLoaderWrapper();

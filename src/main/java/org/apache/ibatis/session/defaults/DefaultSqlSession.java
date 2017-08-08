@@ -35,7 +35,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  *
  * The default implementation for {@link SqlSession}.
@@ -43,6 +44,8 @@ import org.apache.ibatis.session.SqlSession;
  *
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class DefaultSqlSession implements SqlSession {
 
   private Configuration configuration;

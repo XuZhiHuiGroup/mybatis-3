@@ -26,7 +26,8 @@ import javax.sql.DataSource;
 import org.apache.ibatis.executor.BaseExecutor;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * Vendor DatabaseId provider
  * 
@@ -38,6 +39,8 @@ import org.apache.ibatis.logging.LogFactory;
  * 
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public class VendorDatabaseIdProvider implements DatabaseIdProvider {
   
   private static final Log log = LogFactory.getLog(BaseExecutor.class);

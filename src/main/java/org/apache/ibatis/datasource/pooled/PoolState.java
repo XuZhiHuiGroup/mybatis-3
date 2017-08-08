@@ -17,10 +17,13 @@ package org.apache.ibatis.datasource.pooled;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class PoolState {
 
   protected PooledDataSource dataSource;

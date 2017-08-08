@@ -19,10 +19,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class WhereSqlNode extends TrimSqlNode {
 
   private static List<String> prefixList = Arrays.asList("AND ","OR ","AND\n", "OR\n", "AND\r", "OR\r", "AND\t", "OR\t");

@@ -30,11 +30,14 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public class CachingExecutor implements Executor {
 
   private Executor delegate;

@@ -24,10 +24,13 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ResultMapping {
 
   private Configuration configuration;

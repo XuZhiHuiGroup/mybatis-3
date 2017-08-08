@@ -18,10 +18,13 @@ package org.apache.ibatis.plugin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class InterceptorChain {
 
   private final List<Interceptor> interceptors = new ArrayList<Interceptor>();

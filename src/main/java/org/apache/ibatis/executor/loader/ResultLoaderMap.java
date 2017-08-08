@@ -39,11 +39,14 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  * @author Franta Mejta
  */
+@Slf4j
+@ToString
 public class ResultLoaderMap {
 
   private final Map<String, LoadPair> loaderMap = new HashMap<String, LoadPair>();

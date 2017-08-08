@@ -89,10 +89,13 @@ import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeAliasRegistry;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class Configuration {
 
   protected Environment environment;

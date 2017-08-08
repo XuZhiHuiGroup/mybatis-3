@@ -31,12 +31,15 @@ import javax.sql.DataSource;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * This is a simple, synchronous, thread-safe database connection pool.
  *
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class PooledDataSource implements DataSource {
 
   private static final Log log = LogFactory.getLog(PooledDataSource.class);

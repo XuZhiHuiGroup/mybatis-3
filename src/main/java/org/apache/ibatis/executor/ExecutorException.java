@@ -16,10 +16,13 @@
 package org.apache.ibatis.executor;
 
 import org.apache.ibatis.exceptions.PersistenceException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ExecutorException extends PersistenceException {
 
   private static final long serialVersionUID = 4060977051977364820L;

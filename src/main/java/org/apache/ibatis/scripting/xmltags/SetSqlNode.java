@@ -19,10 +19,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class SetSqlNode extends TrimSqlNode {
 
   private static List<String> suffixList = Arrays.asList(",");

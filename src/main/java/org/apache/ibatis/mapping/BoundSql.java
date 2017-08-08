@@ -22,7 +22,8 @@ import java.util.Map;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.property.PropertyTokenizer;
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * An actual SQL String got form an {@link SqlSource} after having processed any dynamic content.
  * The SQL may have SQL placeholders "?" and an list (ordered) of an parameter mappings 
@@ -34,6 +35,8 @@ import org.apache.ibatis.session.Configuration;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class BoundSql {
 
   private String sql;

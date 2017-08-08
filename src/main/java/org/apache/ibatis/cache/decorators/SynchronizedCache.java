@@ -18,10 +18,13 @@ package org.apache.ibatis.cache.decorators;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.apache.ibatis.cache.Cache;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class SynchronizedCache implements Cache {
 
   private Cache delegate;

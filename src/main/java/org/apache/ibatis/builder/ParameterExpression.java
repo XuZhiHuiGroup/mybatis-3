@@ -16,7 +16,8 @@
 package org.apache.ibatis.builder;
 
 import java.util.HashMap;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * Inline parameter expression parser. Supported grammar (simplified):
  * 
@@ -32,6 +33,8 @@ import java.util.HashMap;
 /**
  * @author Frank D. Martinez [mnesarco]
  */
+@Slf4j
+@ToString
 public class ParameterExpression extends HashMap<String, String> {
 
   private static final long serialVersionUID = -2417552199605158680L;

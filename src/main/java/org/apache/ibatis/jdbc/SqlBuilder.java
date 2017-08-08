@@ -14,12 +14,15 @@
  *    limitations under the License.
  */
 package org.apache.ibatis.jdbc;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @Deprecated Use the {@link SQL} Class
  *
  * @author Jeff Butler
  */
+@Slf4j
+@ToString
 public class SqlBuilder {
 
   private static final ThreadLocal<SQL> localSQL = new ThreadLocal<SQL>();

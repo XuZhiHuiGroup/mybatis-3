@@ -19,10 +19,13 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class StringTypeHandler extends BaseTypeHandler<String> {
 
   @Override

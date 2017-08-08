@@ -17,10 +17,13 @@ package org.apache.ibatis.plugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class Invocation {
 
   private Object target;

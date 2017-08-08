@@ -25,10 +25,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.Properties;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Frank D. Martinez [mnesarco]
  */
+@Slf4j
+@ToString
 public class XMLIncludeTransformer {
 
   private final Configuration configuration;

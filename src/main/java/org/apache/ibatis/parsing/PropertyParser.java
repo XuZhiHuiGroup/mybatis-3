@@ -16,10 +16,13 @@
 package org.apache.ibatis.parsing;
 
 import java.util.Properties;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class PropertyParser {
 
   private PropertyParser() {

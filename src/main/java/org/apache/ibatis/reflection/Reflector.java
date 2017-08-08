@@ -33,7 +33,8 @@ import org.apache.ibatis.reflection.invoker.Invoker;
 import org.apache.ibatis.reflection.invoker.MethodInvoker;
 import org.apache.ibatis.reflection.invoker.SetFieldInvoker;
 import org.apache.ibatis.reflection.property.PropertyNamer;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /*
  * This class represents a cached set of class definition information that
  * allows for easy mapping between property names and getter/setter methods.
@@ -41,6 +42,8 @@ import org.apache.ibatis.reflection.property.PropertyNamer;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class Reflector {
 
   private static final String[] EMPTY_STRING_ARRAY = new String[0];

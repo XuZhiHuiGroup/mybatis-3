@@ -25,12 +25,15 @@ import org.apache.ibatis.io.Resources;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * Offline entity resolver for the MyBatis DTDs
  * 
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class XMLMapperEntityResolver implements EntityResolver {
 
   private static final Map<String, String> doctypeMap = new HashMap<String, String>();

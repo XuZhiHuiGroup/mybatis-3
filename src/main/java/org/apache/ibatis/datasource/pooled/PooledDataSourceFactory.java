@@ -16,10 +16,13 @@
 package org.apache.ibatis.datasource.pooled;
 
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class PooledDataSourceFactory extends UnpooledDataSourceFactory {
 
   public PooledDataSourceFactory() {

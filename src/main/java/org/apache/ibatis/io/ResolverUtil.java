@@ -23,7 +23,8 @@ import java.util.Set;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * <p>ResolverUtil is used to locate classes that are available in the/a class path and meet
  * arbitrary conditions. The two most common conditions are that a class implements/extends
@@ -56,6 +57,8 @@ import org.apache.ibatis.logging.LogFactory;
  *
  * @author Tim Fennell
  */
+@Slf4j
+@ToString
 public class ResolverUtil<T> {
   /*
    * An instance of Log to use for logging in this class.

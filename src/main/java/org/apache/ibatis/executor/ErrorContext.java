@@ -14,10 +14,13 @@
  *    limitations under the License.
  */
 package org.apache.ibatis.executor;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ErrorContext {
 
   private static final String LINE_SEPARATOR = System.getProperty("line.separator","\n");

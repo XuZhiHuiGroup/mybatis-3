@@ -16,10 +16,13 @@
 package org.apache.ibatis.reflection.property;
 
 import java.lang.reflect.Field;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public final class PropertyCopier {
 
   private PropertyCopier() {

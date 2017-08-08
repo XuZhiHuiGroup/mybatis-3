@@ -22,11 +22,14 @@ import java.sql.SQLException;
 
 import org.apache.ibatis.executor.result.ResultMapException;
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  * @author Simone Tripodi
  */
+@Slf4j
+@ToString
 public abstract class BaseTypeHandler<T> extends TypeReference<T> implements TypeHandler<T> {
 
   protected Configuration configuration;

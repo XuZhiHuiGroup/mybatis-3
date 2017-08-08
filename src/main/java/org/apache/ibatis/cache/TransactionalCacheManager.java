@@ -19,10 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.cache.decorators.TransactionalCache;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class TransactionalCacheManager {
 
   private Map<Cache, TransactionalCache> transactionalCaches = new HashMap<Cache, TransactionalCache>();

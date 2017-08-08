@@ -16,10 +16,13 @@
 package org.apache.ibatis.exceptions;
 
 import org.apache.ibatis.executor.ErrorContext;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ExceptionFactory {
 
   private ExceptionFactory() {

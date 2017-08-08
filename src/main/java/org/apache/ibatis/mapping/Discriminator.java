@@ -19,10 +19,13 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.apache.ibatis.session.Configuration;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class Discriminator {
 
   private ResultMapping resultMapping;

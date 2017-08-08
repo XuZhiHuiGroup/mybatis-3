@@ -21,10 +21,13 @@ import java.util.Map;
 import org.apache.ibatis.executor.loader.AbstractSerialStateHolder;
 import org.apache.ibatis.executor.loader.ResultLoaderMap;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 class CglibSerialStateHolder extends AbstractSerialStateHolder {
 
   private static final long serialVersionUID = 8940388717901644661L;

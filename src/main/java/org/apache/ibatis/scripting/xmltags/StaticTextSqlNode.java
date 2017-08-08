@@ -14,10 +14,13 @@
  *    limitations under the License.
  */
 package org.apache.ibatis.scripting.xmltags;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class StaticTextSqlNode implements SqlNode {
   private String text;
 

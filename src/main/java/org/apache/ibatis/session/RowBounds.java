@@ -14,10 +14,13 @@
  *    limitations under the License.
  */
 package org.apache.ibatis.session;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class RowBounds {
 
   public static final int NO_ROW_OFFSET = 0;

@@ -24,7 +24,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * The 2nd level cache transactional buffer.
  * 
@@ -36,6 +37,8 @@ import org.apache.ibatis.logging.LogFactory;
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public class TransactionalCache implements Cache {
 
   private static final Log log = LogFactory.getLog(TransactionalCache.class);

@@ -16,10 +16,13 @@
 package org.apache.ibatis.executor.result;
 
 import org.apache.ibatis.session.ResultContext;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class DefaultResultContext<T> implements ResultContext<T> {
 
   private T resultObject;

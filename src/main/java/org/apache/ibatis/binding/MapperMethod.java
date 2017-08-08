@@ -15,6 +15,8 @@
  */
 package org.apache.ibatis.binding;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Flush;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
@@ -35,6 +37,8 @@ import java.util.*;
  * @author Eduardo Macarron
  * @author Lasse Voss
  */
+@Slf4j
+@ToString
 public class MapperMethod {
 
   private final SqlCommand command;
@@ -46,6 +50,7 @@ public class MapperMethod {
   }
 
   public Object execute(SqlSession sqlSession, Object[] args) {
+      log.debug("MapperMethod[{}] execute with sqlSession[{}] and args[{}]", this, sqlSession, args);
     Object result;
     if (SqlCommandType.INSERT == command.getType()) {
       Object param = method.convertArgsToSqlCommandParam(args);

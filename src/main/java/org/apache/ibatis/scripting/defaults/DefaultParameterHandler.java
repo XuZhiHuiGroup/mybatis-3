@@ -31,11 +31,14 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public class DefaultParameterHandler implements ParameterHandler {
 
   private final TypeHandlerRegistry typeHandlerRegistry;

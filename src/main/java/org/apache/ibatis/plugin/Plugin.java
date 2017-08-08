@@ -24,10 +24,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ibatis.reflection.ExceptionUtil;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class Plugin implements InvocationHandler {
 
   private Object target;

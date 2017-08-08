@@ -14,10 +14,13 @@
  *    limitations under the License.
  */
 package org.apache.ibatis.scripting.xmltags;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Frank D. Martinez [mnesarco]
  */
+@Slf4j
+@ToString
 public class VarDeclSqlNode implements SqlNode {
 
   private final String name;

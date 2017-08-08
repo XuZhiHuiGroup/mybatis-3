@@ -24,7 +24,8 @@ import org.apache.ibatis.scripting.xmltags.DynamicContext;
 import org.apache.ibatis.scripting.xmltags.DynamicSqlSource;
 import org.apache.ibatis.scripting.xmltags.SqlNode;
 import org.apache.ibatis.session.Configuration;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * Static SqlSource. It is faster than {@link DynamicSqlSource} because mappings are 
  * calculated during startup.
@@ -32,6 +33,8 @@ import org.apache.ibatis.session.Configuration;
  * @since 3.2.0
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public class RawSqlSource implements SqlSource {
 
   private final SqlSource sqlSource;

@@ -17,12 +17,15 @@ package org.apache.ibatis.io;
 
 import java.io.InputStream;
 import java.net.URL;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * A class to wrap access to multiple class loaders making them work as one
  *
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ClassLoaderWrapper {
 
   ClassLoader defaultClassLoader;

@@ -23,10 +23,13 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class TrimSqlNode implements SqlNode {
 
   private SqlNode contents;

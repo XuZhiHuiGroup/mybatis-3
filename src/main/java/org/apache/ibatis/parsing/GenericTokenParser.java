@@ -15,9 +15,14 @@
  */
 package org.apache.ibatis.parsing;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class GenericTokenParser {
 
   private final String openToken;

@@ -16,10 +16,13 @@
 package org.apache.ibatis.mapping;
 
 import java.sql.ResultSet;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public enum ResultSetType {
   FORWARD_ONLY(ResultSet.TYPE_FORWARD_ONLY),
   SCROLL_INSENSITIVE(ResultSet.TYPE_SCROLL_INSENSITIVE),

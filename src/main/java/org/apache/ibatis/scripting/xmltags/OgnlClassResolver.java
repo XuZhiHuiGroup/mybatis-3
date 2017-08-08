@@ -21,7 +21,8 @@ import java.util.Map;
 import ognl.ClassResolver;
 
 import org.apache.ibatis.io.Resources;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * Custom ognl {@code ClassResolver} which behaves same like ognl's
  * {@code DefaultClassResolver}. But uses the {@code Resources}
@@ -32,6 +33,8 @@ import org.apache.ibatis.io.Resources;
  * @author Daniel Guggi
  * 
  */
+@Slf4j
+@ToString
 public class OgnlClassResolver implements ClassResolver {
 
   private Map<String, Class<?>> classes = new HashMap<String, Class<?>>(101);

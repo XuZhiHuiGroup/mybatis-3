@@ -25,12 +25,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
  * @author Lasse Voss
  */
+@Slf4j
+@ToString
 public class MapperRegistry {
 
   private final Configuration config;
@@ -42,6 +45,7 @@ public class MapperRegistry {
 
   @SuppressWarnings("unchecked")
   public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+      log.debug("getMapper by type[{}] and sqlSession[{}]", type, sqlSession);
     final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
     if (mapperProxyFactory == null) {
       throw new BindingException("Type " + type + " is not known to the MapperRegistry.");

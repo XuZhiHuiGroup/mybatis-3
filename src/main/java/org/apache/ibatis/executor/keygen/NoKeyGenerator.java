@@ -19,10 +19,13 @@ import java.sql.Statement;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class NoKeyGenerator implements KeyGenerator {
 
   @Override

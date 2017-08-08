@@ -20,12 +20,15 @@ import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.apache.ibatis.cache.Cache;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * Lru (least recently used) cache decorator
  *
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class LruCache implements Cache {
 
   private final Cache delegate;

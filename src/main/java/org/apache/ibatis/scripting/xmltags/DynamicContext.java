@@ -25,10 +25,13 @@ import ognl.PropertyAccessor;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class DynamicContext {
 
   public static final String PARAMETER_OBJECT_KEY = "_parameter";

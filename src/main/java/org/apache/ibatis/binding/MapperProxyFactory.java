@@ -21,10 +21,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.ibatis.session.SqlSession;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Lasse Voss
  */
+@Slf4j
+@ToString
 public class MapperProxyFactory<T> {
 
   private final Class<T> mapperInterface;
@@ -48,6 +51,7 @@ public class MapperProxyFactory<T> {
   }
 
   public T newInstance(SqlSession sqlSession) {
+      log.debug("MapperProxyFactory create MapperProxy by sqlSession[{}]", sqlSession);
     final MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);
     return newInstance(mapperProxy);
   }

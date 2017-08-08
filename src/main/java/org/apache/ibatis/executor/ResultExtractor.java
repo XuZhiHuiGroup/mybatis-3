@@ -21,10 +21,13 @@ import org.apache.ibatis.session.Configuration;
 
 import java.lang.reflect.Array;
 import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Andrew Gustafson
  */
+@Slf4j
+@ToString
 public class ResultExtractor {
   private final Configuration configuration;
   private final ObjectFactory objectFactory;

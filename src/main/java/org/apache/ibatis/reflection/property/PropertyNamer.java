@@ -18,10 +18,13 @@ package org.apache.ibatis.reflection.property;
 import java.util.Locale;
 
 import org.apache.ibatis.reflection.ReflectionException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public final class PropertyNamer {
 
   private PropertyNamer() {

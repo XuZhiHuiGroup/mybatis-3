@@ -17,10 +17,13 @@ package org.apache.ibatis.reflection.invoker;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class SetFieldInvoker implements Invoker {
   private Field field;
 

@@ -19,10 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.mapping.MappedStatement;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Jeff Butler
  */
+@Slf4j
+@ToString
 public class BatchResult {
 
   private final MappedStatement mappedStatement;

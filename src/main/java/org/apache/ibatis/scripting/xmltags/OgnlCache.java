@@ -22,7 +22,8 @@ import ognl.Ognl;
 import ognl.OgnlException;
 
 import org.apache.ibatis.builder.BuilderException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * Caches OGNL parsed expressions.
  *  
@@ -30,6 +31,8 @@ import org.apache.ibatis.builder.BuilderException;
  *
  * @author Eduardo Macarron
  */
+@Slf4j
+@ToString
 public final class OgnlCache {
 
   private static final Map<String, Object> expressionCache = new ConcurrentHashMap<String, Object>();

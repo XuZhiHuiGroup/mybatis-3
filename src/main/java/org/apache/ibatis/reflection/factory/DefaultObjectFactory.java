@@ -29,10 +29,13 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.ibatis.reflection.ReflectionException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class DefaultObjectFactory implements ObjectFactory, Serializable {
 
   private static final long serialVersionUID = -8855120656740914948L;

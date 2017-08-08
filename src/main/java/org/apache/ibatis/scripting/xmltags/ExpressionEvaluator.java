@@ -22,10 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.builder.BuilderException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class ExpressionEvaluator {
 
   public boolean evaluateBoolean(String expression, Object parameterObject) {

@@ -25,12 +25,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * @author Larry Meadors
  */
+@Slf4j
+@ToString
 public class SqlSessionManager implements SqlSessionFactory, SqlSession {
 
   private final SqlSessionFactory sqlSessionFactory;
@@ -44,6 +48,7 @@ public class SqlSessionManager implements SqlSessionFactory, SqlSession {
         SqlSessionFactory.class.getClassLoader(),
         new Class[]{SqlSession.class},
         new SqlSessionInterceptor());
+    log.debug("SqlSessionManager init [{}]", this);
   }
 
   public static SqlSessionManager newInstance(Reader reader) {

@@ -16,10 +16,13 @@
 package org.apache.ibatis.datasource;
 
 import org.apache.ibatis.exceptions.PersistenceException;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public class DataSourceException extends PersistenceException {
 
   private static final long serialVersionUID = -5251396250407091334L;

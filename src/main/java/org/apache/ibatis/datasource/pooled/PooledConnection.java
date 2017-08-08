@@ -22,10 +22,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.ibatis.reflection.ExceptionUtil;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 class PooledConnection implements InvocationHandler {
 
   private static final String CLOSE = "close";

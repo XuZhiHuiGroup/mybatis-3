@@ -34,10 +34,13 @@ import org.apache.ibatis.type.ObjectTypeHandler;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.apache.ibatis.type.UnknownTypeHandler;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Iwao AVE!
  */
+@Slf4j
+@ToString
 class ResultSetWrapper {
 
   private final ResultSet resultSet;

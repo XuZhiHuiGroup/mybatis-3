@@ -18,10 +18,13 @@ package org.apache.ibatis.mapping;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.transaction.TransactionFactory;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 /**
  * @author Clinton Begin
  */
+@Slf4j
+@ToString
 public final class Environment {
   private final String id;
   private final TransactionFactory transactionFactory;

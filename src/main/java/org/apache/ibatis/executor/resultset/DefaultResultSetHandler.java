@@ -56,12 +56,15 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-
+import lombok.extern.slf4j.Slf4j;
+import lombok.ToString;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
  * @author Iwao AVE!
  */
+@Slf4j
+@ToString
 public class DefaultResultSetHandler implements ResultSetHandler {
 
   private static final Object DEFERED = new Object();
