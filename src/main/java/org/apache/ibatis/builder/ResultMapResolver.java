@@ -15,13 +15,13 @@
  */
 package org.apache.ibatis.builder;
 
-import java.util.List;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.Discriminator;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 /**
  * @author Eduardo Macarron
  */
@@ -37,7 +37,8 @@ public class ResultMapResolver {
   private Boolean autoMapping;
 
   public ResultMapResolver(MapperBuilderAssistant assistant, String id, Class<?> type, String extend, Discriminator discriminator, List<ResultMapping> resultMappings, Boolean autoMapping) {
-    this.assistant = assistant;
+    log.debug("ResultMapResolver({},{},{},{},{},{},{})",assistant, id, type,extend, discriminator, resultMappings, autoMapping);
+      this.assistant = assistant;
     this.id = id;
     this.type = type;
     this.extend = extend;
@@ -47,6 +48,7 @@ public class ResultMapResolver {
   }
 
   public ResultMap resolve() {
+      log.debug("resolve()");
     return assistant.addResultMap(this.id, this.type, this.extend, this.discriminator, this.resultMappings, this.autoMapping);
   }
 

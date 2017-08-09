@@ -15,9 +15,10 @@
  */
 package org.apache.ibatis.builder.annotation;
 
-import java.lang.reflect.Method;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Method;
 /**
  * @author Eduardo Macarron
  */
@@ -28,12 +29,14 @@ public class MethodResolver {
   private Method method;
 
   public MethodResolver(MapperAnnotationBuilder annotationBuilder, Method method) {
+      log.debug("MethodResolver({}, {})", annotationBuilder, method);
     this.annotationBuilder = annotationBuilder;
     this.method = method;
   }
 
   public void resolve() {
-    annotationBuilder.parseStatement(method);
+      log.debug("resolve()");
+      annotationBuilder.parseStatement(method);
   }
 
 }

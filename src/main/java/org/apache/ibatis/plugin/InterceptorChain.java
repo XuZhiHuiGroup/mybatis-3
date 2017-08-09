@@ -15,11 +15,13 @@
  */
 package org.apache.ibatis.plugin;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Clinton Begin
  */
@@ -27,21 +29,24 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 public class InterceptorChain {
 
-  private final List<Interceptor> interceptors = new ArrayList<Interceptor>();
+    private final List<Interceptor> interceptors = new ArrayList<Interceptor>();
 
-  public Object pluginAll(Object target) {
-    for (Interceptor interceptor : interceptors) {
-      target = interceptor.plugin(target);
+    public Object pluginAll(Object target) {
+        log.debug("pluginAll({})", target);
+        for (Interceptor interceptor : interceptors) {
+            target = interceptor.plugin(target);
+        }
+        return target;
     }
-    return target;
-  }
 
-  public void addInterceptor(Interceptor interceptor) {
-    interceptors.add(interceptor);
-  }
-  
-  public List<Interceptor> getInterceptors() {
-    return Collections.unmodifiableList(interceptors);
-  }
+    public void addInterceptor(Interceptor interceptor) {
+        log.debug("addInterceptor({})", interceptor);
+        interceptors.add(interceptor);
+    }
+
+    public List<Interceptor> getInterceptors() {
+        log.debug("getInterceptors()");
+        return Collections.unmodifiableList(interceptors);
+    }
 
 }

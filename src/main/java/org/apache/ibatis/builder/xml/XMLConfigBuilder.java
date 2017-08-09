@@ -15,13 +15,8 @@
  */
 package org.apache.ibatis.builder.xml;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.sql.DataSource;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.BaseBuilder;
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.ibatis.datasource.DataSourceFactory;
@@ -44,8 +39,11 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.LocalCacheScope;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.type.JdbcType;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
+
+import javax.sql.DataSource;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.Properties;
 /**
  * @author Clinton Begin
  */
@@ -103,51 +101,20 @@ public class XMLConfigBuilder extends BaseBuilder {
     private void parseConfiguration(XNode root) {
         try {
             //issue #117 read properties first
-            log.debug("{}", configuration);
-            log.debug("parse properties begin");
             propertiesElement(root.evalNode("properties"));
-            log.debug("parse properties end");
-            log.debug("{}", configuration);
-            log.debug("parse settings begin");
             Properties settings = settingsAsProperties(root.evalNode("settings"));
             loadCustomVfs(settings);
-            log.debug("parse settings end");
-            log.debug("{}", configuration);
-            log.debug("parse typeAliases begin");
             typeAliasesElement(root.evalNode("typeAliases"));
-            log.debug("parse typeAliases end");
-            log.debug("{}", configuration);
-            log.debug("parse plugins begin");
             pluginElement(root.evalNode("plugins"));
-            log.debug("parse plugins end");
-            log.debug("{}", configuration);
-            log.debug("parse objectFactory begin");
             objectFactoryElement(root.evalNode("objectFactory"));
-            log.debug("parse objectFactory end");
-            log.debug("{}", configuration);
-            log.debug("parse objectWrapperFactory begin");
             objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
-            log.debug("parse objectWrapperFactory end");
-            log.debug("{}", configuration);
-            log.debug("parse reflectionFactory begin");
             reflectionFactoryElement(root.evalNode("reflectionFactory"));
-            log.debug("parse reflectionFactory begin");
             settingsElement(settings);
             // read it after objectFactory and objectWrapperFactory issue #631
-            environmentsElement(root.evalNode("environments"));
-            log.debug("parse environments end");
-            log.debug("{}", configuration);
-            log.debug("parse databaseIdProvider begin");
             databaseIdProviderElement(root.evalNode("databaseIdProvider"));
-            log.debug("parse databaseIdProvider end");
-            log.debug("{}", configuration);
-            log.debug("parse typeHandlers begin");
             typeHandlerElement(root.evalNode("typeHandlers"));
-            log.debug("parse typeHandlers end");
-            log.debug("{}", configuration);
-            log.debug("parse mappers begin");
             mapperElement(root.evalNode("mappers"));
-            log.debug("parse mappers end");
+            log.debug("{}", configuration);
         } catch (Exception e) {
             throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
         }

@@ -15,22 +15,25 @@
  */
 package org.apache.ibatis.reflection.wrapper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.ReflectionException;
 
 /**
  * @author Clinton Begin
  */
+@Slf4j
 public class DefaultObjectWrapperFactory implements ObjectWrapperFactory {
 
-  @Override
-  public boolean hasWrapperFor(Object object) {
-    return false;
-  }
+    @Override
+    public boolean hasWrapperFor(Object object) {
+        log.debug("hasWrapperFor({})", object);
+        return false;
+    }
 
-  @Override
-  public ObjectWrapper getWrapperFor(MetaObject metaObject, Object object) {
-    throw new ReflectionException("The DefaultObjectWrapperFactory should never be called to provide an ObjectWrapper.");
-  }
+    @Override
+    public ObjectWrapper getWrapperFor(MetaObject metaObject, Object object) {
+        throw new ReflectionException("The DefaultObjectWrapperFactory should never be called to provide an ObjectWrapper.");
+    }
 
 }

@@ -15,42 +15,48 @@
  */
 package org.apache.ibatis.reflection;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
+
 @Slf4j
 @ToString
 public class DefaultReflectorFactory implements ReflectorFactory {
-  private boolean classCacheEnabled = true;
-  private final ConcurrentMap<Class<?>, Reflector> reflectorMap = new ConcurrentHashMap<Class<?>, Reflector>();
+    private boolean classCacheEnabled = true;
+    private final ConcurrentMap<Class<?>, Reflector> reflectorMap = new ConcurrentHashMap<Class<?>, Reflector>();
 
-  public DefaultReflectorFactory() {
-  }
-
-  @Override
-  public boolean isClassCacheEnabled() {
-    return classCacheEnabled;
-  }
-
-  @Override
-  public void setClassCacheEnabled(boolean classCacheEnabled) {
-    this.classCacheEnabled = classCacheEnabled;
-  }
-
-  @Override
-  public Reflector findForClass(Class<?> type) {
-    if (classCacheEnabled) {
-            // synchronized (type) removed see issue #461
-      Reflector cached = reflectorMap.get(type);
-      if (cached == null) {
-        cached = new Reflector(type);
-        reflectorMap.put(type, cached);
-      }
-      return cached;
-    } else {
-      return new Reflector(type);
+    public DefaultReflectorFactory() {
+        log.debug("DefaultReflectorFactory()");
     }
-  }
+
+    @Override
+    public boolean isClassCacheEnabled() {
+        log.debug("isClassCacheEnabled()");
+        return classCacheEnabled;
+    }
+
+    @Override
+    public void setClassCacheEnabled(boolean classCacheEnabled) {
+        log.debug("setClassCacheEnabled({})", classCacheEnabled);
+        this.classCacheEnabled = classCacheEnabled;
+    }
+
+    @Override
+    public Reflector findForClass(Class<?> type) {
+        log.debug("findForClass({})", type);
+        if (classCacheEnabled) {
+            // synchronized (type) removed see issue #461
+            Reflector cached = reflectorMap.get(type);
+            if (cached == null) {
+                cached = new Reflector(type);
+                reflectorMap.put(type, cached);
+            }
+            return cached;
+        } else {
+            return new Reflector(type);
+        }
+    }
 
 }
