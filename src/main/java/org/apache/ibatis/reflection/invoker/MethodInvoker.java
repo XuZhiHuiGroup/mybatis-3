@@ -15,10 +15,11 @@
  */
 package org.apache.ibatis.reflection.invoker;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
 /**
  * @author Clinton Begin
  */
@@ -30,6 +31,7 @@ public class MethodInvoker implements Invoker {
   private Method method;
 
   public MethodInvoker(Method method) {
+      log.debug("MethodInvoker({})", method);
     this.method = method;
 
     if (method.getParameterTypes().length == 1) {
@@ -41,6 +43,7 @@ public class MethodInvoker implements Invoker {
 
   @Override
   public Object invoke(Object target, Object[] args) throws IllegalAccessException, InvocationTargetException {
+      log.debug("invoke({}, {})", target, args);
     return method.invoke(target, args);
   }
 

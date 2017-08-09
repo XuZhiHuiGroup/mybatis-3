@@ -15,12 +15,12 @@
  */
 package org.apache.ibatis.mapping;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.ibatis.session.Configuration;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.Configuration;
+
+import java.util.Collections;
+import java.util.List;
 /**
  * @author Clinton Begin
  */
@@ -33,6 +33,7 @@ public class ParameterMap {
   private List<ParameterMapping> parameterMappings;
 
   private ParameterMap() {
+      log.debug("ParameterMap()");
   }
 
   public static class Builder {

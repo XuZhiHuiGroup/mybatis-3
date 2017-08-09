@@ -15,10 +15,11 @@
  */
 package org.apache.ibatis.plugin;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
 /**
  * @author Clinton Begin
  */
@@ -31,6 +32,7 @@ public class Invocation {
   private Object[] args;
 
   public Invocation(Object target, Method method, Object[] args) {
+      log.debug("Invocation({}, {}, {})", target, method, args);
     this.target = target;
     this.method = method;
     this.args = args;

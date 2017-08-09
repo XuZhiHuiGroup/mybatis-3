@@ -15,9 +15,11 @@
  */
 package org.apache.ibatis.parsing;
 
-import java.util.Properties;
-import lombok.extern.slf4j.Slf4j;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Properties;
+
 /**
  * @author Clinton Begin
  */
@@ -25,29 +27,32 @@ import lombok.ToString;
 @ToString
 public class PropertyParser {
 
-  private PropertyParser() {
-    // Prevent Instantiation
-  }
-
-  public static String parse(String string, Properties variables) {
-    VariableTokenHandler handler = new VariableTokenHandler(variables);
-    GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
-    return parser.parse(string);
-  }
-
-  private static class VariableTokenHandler implements TokenHandler {
-    private Properties variables;
-
-    public VariableTokenHandler(Properties variables) {
-      this.variables = variables;
+    private PropertyParser() {
+        // Prevent Instantiation
+        log.debug("PropertyParser()");
     }
 
-    @Override
-    public String handleToken(String content) {
-      if (variables != null && variables.containsKey(content)) {
-        return variables.getProperty(content);
-      }
-      return "${" + content + "}";
+    public static String parse(String string, Properties variables) {
+        log.debug("parse({}, {})", string, variables);
+        VariableTokenHandler handler = new VariableTokenHandler(variables);
+        GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
+        return parser.parse(string);
     }
-  }
+
+    private static class VariableTokenHandler implements TokenHandler {
+        private Properties variables;
+
+        public VariableTokenHandler(Properties variables) {
+            this.variables = variables;
+        }
+
+        @Override
+        public String handleToken(String content) {
+            log.debug("handleToken({})", content);
+            if (variables != null && variables.containsKey(content)) {
+                return variables.getProperty(content);
+            }
+            return "${" + content + "}";
+        }
+    }
 }

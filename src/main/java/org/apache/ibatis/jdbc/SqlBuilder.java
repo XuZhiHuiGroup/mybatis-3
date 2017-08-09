@@ -32,6 +32,7 @@ public class SqlBuilder {
   }
 
   private SqlBuilder() {
+      log.debug("SqlBuilder()");
     // Prevent Instantiation
   }
 

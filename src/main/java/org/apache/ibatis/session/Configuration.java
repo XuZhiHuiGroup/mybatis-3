@@ -198,11 +198,13 @@ public class Configuration {
     }
 
     public Class<? extends Log> getLogImpl() {
+        log.debug("getLogImpl()");
         return logImpl;
     }
 
     @SuppressWarnings("unchecked")
     public void setLogImpl(Class<?> logImpl) {
+        log.debug("setLogImpl({}", logImpl);
         if (logImpl != null) {
             this.logImpl = (Class<? extends Log>) logImpl;
             LogFactory.useCustomLogging(this.logImpl);
@@ -210,11 +212,13 @@ public class Configuration {
     }
 
     public Class<? extends VFS> getVfsImpl() {
+        log.debug("getVfsImpl()");
         return this.vfsImpl;
     }
 
     @SuppressWarnings("unchecked")
     public void setVfsImpl(Class<?> vfsImpl) {
+        log.debug("setVfsImpl({})", vfsImpl);
         if (vfsImpl != null) {
             this.vfsImpl = (Class<? extends VFS>) vfsImpl;
             VFS.addImplClass(this.vfsImpl);
@@ -395,42 +399,52 @@ public class Configuration {
     }
 
     public Integer getDefaultStatementTimeout() {
+        log.debug("getDefaultStatementTimeout()");
         return defaultStatementTimeout;
     }
 
     public void setDefaultStatementTimeout(Integer defaultStatementTimeout) {
+        log.debug("setDefaultStatementTimeout({})", defaultStatementTimeout);
         this.defaultStatementTimeout = defaultStatementTimeout;
     }
 
     public Integer getDefaultFetchSize() {
+        log.debug("getDefaultFetchSize()");
         return defaultFetchSize;
     }
 
     public void setDefaultFetchSize(Integer defaultFetchSize) {
+        log.debug("setDefaultFetchSize({})", defaultFetchSize);
         this.defaultFetchSize = defaultFetchSize;
     }
 
     public boolean isUseColumnLabel() {
+        log.debug("isUseColumnLabel()");
         return useColumnLabel;
     }
 
     public void setUseColumnLabel(boolean useColumnLabel) {
+        log.debug("setUseColumnLabel({})", useColumnLabel);
         this.useColumnLabel = useColumnLabel;
     }
 
     public LocalCacheScope getLocalCacheScope() {
+        log.debug("getLocalCacheScope()");
         return localCacheScope;
     }
 
     public void setLocalCacheScope(LocalCacheScope localCacheScope) {
+        log.debug("setLocalCacheScope({})", localCacheScope);
         this.localCacheScope = localCacheScope;
     }
 
     public JdbcType getJdbcTypeForNull() {
+        log.debug("getJdbcTypeForNull()");
         return jdbcTypeForNull;
     }
 
     public void setJdbcTypeForNull(JdbcType jdbcTypeForNull) {
+        log.debug("setJdbcTypeForNull({})", jdbcTypeForNull);
         this.jdbcTypeForNull = jdbcTypeForNull;
     }
 
@@ -440,14 +454,17 @@ public class Configuration {
     }
 
     public void setVariables(Properties variables) {
+        log.debug("setVariables({})", variables);
         this.variables = variables;
     }
 
     public TypeHandlerRegistry getTypeHandlerRegistry() {
+        log.debug("getTypeHandlerRegistry()");
         return typeHandlerRegistry;
     }
 
     public TypeAliasRegistry getTypeAliasRegistry() {
+        log.debug("getTypeAliasRegistry()");
         return typeAliasRegistry;
     }
 
@@ -455,30 +472,37 @@ public class Configuration {
      * @since 3.2.2
      */
     public MapperRegistry getMapperRegistry() {
+        log.debug("getMapperRegistry()");
         return mapperRegistry;
     }
 
     public ReflectorFactory getReflectorFactory() {
+        log.debug("getReflectorFactory()");
         return reflectorFactory;
     }
 
     public void setReflectorFactory(ReflectorFactory reflectorFactory) {
+        log.debug("setReflectorFactory({})", reflectorFactory);
         this.reflectorFactory = reflectorFactory;
     }
 
     public ObjectFactory getObjectFactory() {
+        log.debug("getObjectFactory()");
         return objectFactory;
     }
 
     public void setObjectFactory(ObjectFactory objectFactory) {
+        log.debug("setObjectFactory({})", objectFactory);
         this.objectFactory = objectFactory;
     }
 
     public ObjectWrapperFactory getObjectWrapperFactory() {
+        log.debug("getObjectWrapperFactory()");
         return objectWrapperFactory;
     }
 
     public void setObjectWrapperFactory(ObjectWrapperFactory objectWrapperFactory) {
+        log.debug("setObjectWrapperFactory({})", objectWrapperFactory);
         this.objectWrapperFactory = objectWrapperFactory;
     }
 
@@ -486,14 +510,17 @@ public class Configuration {
      * @since 3.2.2
      */
     public List<Interceptor> getInterceptors() {
+        log.debug("getInterceptors()");
         return interceptorChain.getInterceptors();
     }
 
     public LanguageDriverRegistry getLanguageRegistry() {
+        log.debug("getLanguageRegistry()");
         return languageRegistry;
     }
 
     public void setDefaultScriptingLanguage(Class<?> driver) {
+        log.debug("setDefaultScriptingLanguage({})", driver);
         if (driver == null) {
             driver = XMLLanguageDriver.class;
         }
@@ -501,14 +528,17 @@ public class Configuration {
     }
 
     public LanguageDriver getDefaultScriptingLanuageInstance() {
+        log.debug("getDefaultScriptingLanuageInstance()");
         return languageRegistry.getDefaultDriver();
     }
 
     public MetaObject newMetaObject(Object object) {
+        log.debug("newMetaObject({})", object);
         return MetaObject.forObject(object, objectFactory, objectWrapperFactory, reflectorFactory);
     }
 
     public ParameterHandler newParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql) {
+        log.debug("newParameterHandler({}, {}, {})", mappedStatement, parameterObject, boundSql);
         ParameterHandler parameterHandler = mappedStatement.getLang().createParameterHandler(mappedStatement, parameterObject, boundSql);
         parameterHandler = (ParameterHandler) interceptorChain.pluginAll(parameterHandler);
         return parameterHandler;
@@ -516,22 +546,26 @@ public class Configuration {
 
     public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler,
                                                 ResultHandler resultHandler, BoundSql boundSql) {
+        log.debug("newResultSetHandler({},{},{},{},{},{})", executor, mappedStatement, rowBounds, parameterHandler, resultHandler, boundSql);
         ResultSetHandler resultSetHandler = new DefaultResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);
         resultSetHandler = (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);
         return resultSetHandler;
     }
 
     public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+        log.debug("newResultSetHandler({},{},{},{},{},{})", executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);
         StatementHandler statementHandler = new RoutingStatementHandler(executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);
         statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
         return statementHandler;
     }
 
     public Executor newExecutor(Transaction transaction) {
+        log.debug("newExecutor({})", transaction);
         return newExecutor(transaction, defaultExecutorType);
     }
 
     public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
+        log.debug("newExecutor({},{})", transaction, executorType);
         executorType = executorType == null ? defaultExecutorType : executorType;
         executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
         Executor executor;
@@ -550,68 +584,84 @@ public class Configuration {
     }
 
     public void addKeyGenerator(String id, KeyGenerator keyGenerator) {
+        log.debug("addKeyGenerator({}, {})", id, keyGenerator);
         keyGenerators.put(id, keyGenerator);
     }
 
     public Collection<String> getKeyGeneratorNames() {
+        log.debug("getKeyGeneratorNames()");
         return keyGenerators.keySet();
     }
 
     public Collection<KeyGenerator> getKeyGenerators() {
+        log.debug("getKeyGenerators()");
         return keyGenerators.values();
     }
 
     public KeyGenerator getKeyGenerator(String id) {
+        log.debug("getKeyGenerator({})", id);
         return keyGenerators.get(id);
     }
 
     public boolean hasKeyGenerator(String id) {
+        log.debug("hasKeyGenerator({})", id);
         return keyGenerators.containsKey(id);
     }
 
     public void addCache(Cache cache) {
+        log.debug("addCache({})", cache);
         caches.put(cache.getId(), cache);
     }
 
     public Collection<String> getCacheNames() {
+        log.debug("getCacheNames()");
         return caches.keySet();
     }
 
     public Collection<Cache> getCaches() {
+        log.debug("getCaches()");
         return caches.values();
     }
 
     public Cache getCache(String id) {
+        log.debug("getCache({})", id);
         return caches.get(id);
     }
 
     public boolean hasCache(String id) {
+        log.debug("hasCache({})", id);
         return caches.containsKey(id);
     }
 
     public void addResultMap(ResultMap rm) {
+        log.debug("addResultMap({})", rm);
         resultMaps.put(rm.getId(), rm);
         checkLocallyForDiscriminatedNestedResultMaps(rm);
         checkGloballyForDiscriminatedNestedResultMaps(rm);
     }
 
     public Collection<String> getResultMapNames() {
+        log.debug("getResultMapNames()");
         return resultMaps.keySet();
     }
 
     public Collection<ResultMap> getResultMaps() {
+        log.debug("getResultMaps()");
         return resultMaps.values();
     }
 
     public ResultMap getResultMap(String id) {
+        log.debug("getResultMap({})", id);
         return resultMaps.get(id);
     }
 
     public boolean hasResultMap(String id) {
+        log.debug("hasResultMap({})", id);
         return resultMaps.containsKey(id);
     }
 
     public void addParameterMap(ParameterMap pm) {
+        log.debug("addParameterMap({})", pm);
         parameterMaps.put(pm.getId(), pm);
     }
 
@@ -632,56 +682,69 @@ public class Configuration {
     }
 
     public void addMappedStatement(MappedStatement ms) {
+        log.debug("addMappedStatement({})", ms);
         mappedStatements.put(ms.getId(), ms);
     }
 
     public Collection<String> getMappedStatementNames() {
+        log.debug("getMappedStatementNames()");
         buildAllStatements();
         return mappedStatements.keySet();
     }
 
     public Collection<MappedStatement> getMappedStatements() {
+        log.debug("getMappedStatements()");
         buildAllStatements();
         return mappedStatements.values();
     }
 
     public Collection<XMLStatementBuilder> getIncompleteStatements() {
+        log.debug("getIncompleteStatements()");
         return incompleteStatements;
     }
 
     public void addIncompleteStatement(XMLStatementBuilder incompleteStatement) {
+        log.debug("addIncompleteStatement({})", incompleteStatement);
         incompleteStatements.add(incompleteStatement);
     }
 
     public Collection<CacheRefResolver> getIncompleteCacheRefs() {
+        log.debug("getIncompleteCacheRefs()");
         return incompleteCacheRefs;
     }
 
     public void addIncompleteCacheRef(CacheRefResolver incompleteCacheRef) {
+        log.debug("addIncompleteCacheRef({})", incompleteCacheRef);
         incompleteCacheRefs.add(incompleteCacheRef);
     }
 
     public Collection<ResultMapResolver> getIncompleteResultMaps() {
+        log.debug("getIncompleteResultMaps()");
         return incompleteResultMaps;
     }
 
     public void addIncompleteResultMap(ResultMapResolver resultMapResolver) {
+        log.debug("addIncompleteResultMap({})", resultMapResolver);
         incompleteResultMaps.add(resultMapResolver);
     }
 
     public void addIncompleteMethod(MethodResolver builder) {
+        log.debug("addIncompleteMethod({})", builder);
         incompleteMethods.add(builder);
     }
 
     public Collection<MethodResolver> getIncompleteMethods() {
+        log.debug("getIncompleteMethods()");
         return incompleteMethods;
     }
 
     public MappedStatement getMappedStatement(String id) {
+        log.debug("getMappedStatement({})", id);
         return this.getMappedStatement(id, true);
     }
 
     public MappedStatement getMappedStatement(String id, boolean validateIncompleteStatements) {
+        log.debug("getMappedStatement({}, {})", id, validateIncompleteStatements);
         if (validateIncompleteStatements) {
             buildAllStatements();
         }
@@ -689,38 +752,47 @@ public class Configuration {
     }
 
     public Map<String, XNode> getSqlFragments() {
+        log.debug("getSqlFragments()");
         return sqlFragments;
     }
 
     public void addInterceptor(Interceptor interceptor) {
+        log.debug("addInterceptor({})", interceptor);
         interceptorChain.addInterceptor(interceptor);
     }
 
     public void addMappers(String packageName, Class<?> superType) {
+        log.debug("addMappers({}, {})", packageName, superType);
         mapperRegistry.addMappers(packageName, superType);
     }
 
     public void addMappers(String packageName) {
+        log.debug("addMappers({}", packageName);
         mapperRegistry.addMappers(packageName);
     }
 
     public <T> void addMapper(Class<T> type) {
+        log.debug("addMapper({})", type);
         mapperRegistry.addMapper(type);
     }
 
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+        log.debug("getMapper({}, {})",type, sqlSession);
         return mapperRegistry.getMapper(type, sqlSession);
     }
 
     public boolean hasMapper(Class<?> type) {
+        log.debug("hasMapper({})", type);
         return mapperRegistry.hasMapper(type);
     }
 
     public boolean hasStatement(String statementName) {
+        log.debug("hasStatement({})", statementName);
         return hasStatement(statementName, true);
     }
 
     public boolean hasStatement(String statementName, boolean validateIncompleteStatements) {
+        log.debug("hasStatement({},{})", statementName, validateIncompleteStatements);
         if (validateIncompleteStatements) {
             buildAllStatements();
         }
@@ -728,6 +800,7 @@ public class Configuration {
     }
 
     public void addCacheRef(String namespace, String referencedNamespace) {
+        log.debug("addCacheRef({}, {})", namespace, referencedNamespace);
         cacheRefMap.put(namespace, referencedNamespace);
     }
 
@@ -737,6 +810,7 @@ public class Configuration {
      * statement validation.
      */
     protected void buildAllStatements() {
+        log.debug("buildAllStatements()");
         if (!incompleteResultMaps.isEmpty()) {
             synchronized (incompleteResultMaps) {
                 // This always throws a BuilderException.
@@ -770,12 +844,14 @@ public class Configuration {
      * @return namespace or null when id does not contain period.
      */
     protected String extractNamespace(String statementId) {
+        log.debug("extractNamespace({})", statementId);
         int lastPeriod = statementId.lastIndexOf('.');
         return lastPeriod > 0 ? statementId.substring(0, lastPeriod) : null;
     }
 
     // Slow but a one time cost. A better solution is welcome.
     protected void checkGloballyForDiscriminatedNestedResultMaps(ResultMap rm) {
+        log.debug("checkGloballyForDiscriminatedNestedResultMaps({})", rm);
         if (rm.hasNestedResultMaps()) {
             for (Map.Entry<String, ResultMap> entry : resultMaps.entrySet()) {
                 Object value = entry.getValue();
@@ -794,6 +870,7 @@ public class Configuration {
 
     // Slow but a one time cost. A better solution is welcome.
     protected void checkLocallyForDiscriminatedNestedResultMaps(ResultMap rm) {
+        log.debug("checkLocallyForDiscriminatedNestedResultMaps({})", rm);
         if (!rm.hasNestedResultMaps() && rm.getDiscriminator() != null) {
             for (Map.Entry<String, String> entry : rm.getDiscriminator().getDiscriminatorMap().entrySet()) {
                 String discriminatedResultMapName = entry.getValue();

@@ -15,14 +15,14 @@
  */
 package org.apache.ibatis.mapping;
 
-import java.sql.ResultSet;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
+
+import java.sql.ResultSet;
 /**
  * @author Clinton Begin
  */
@@ -43,6 +43,7 @@ public class ParameterMapping {
   private String expression;
 
   private ParameterMapping() {
+      log.debug("ParameterMapping()");
   }
 
   public static class Builder {

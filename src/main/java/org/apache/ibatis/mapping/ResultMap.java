@@ -15,16 +15,11 @@
  */
 package org.apache.ibatis.mapping;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
-import org.apache.ibatis.session.Configuration;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.Configuration;
+
+import java.util.*;
 /**
  * @author Clinton Begin
  */
@@ -44,6 +39,7 @@ public class ResultMap {
   private Boolean autoMapping;
 
   private ResultMap() {
+      log.debug("ResultMap()");
   }
 
   public static class Builder {

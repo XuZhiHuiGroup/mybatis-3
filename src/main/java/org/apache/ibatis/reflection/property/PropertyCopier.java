@@ -15,9 +15,10 @@
  */
 package org.apache.ibatis.reflection.property;
 
-import java.lang.reflect.Field;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Field;
 /**
  * @author Clinton Begin
  */
@@ -26,10 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 public final class PropertyCopier {
 
   private PropertyCopier() {
+      log.debug("PropertyCopier()");
     // Prevent Instantiation of Static Class
   }
 
   public static void copyBeanProperties(Class<?> type, Object sourceBean, Object destinationBean) {
+      log.debug("copyBeanProperties({},{},{})", type, sourceBean, destinationBean);
     Class<?> parent = type;
     while (parent != null) {
       final Field[] fields = parent.getDeclaredFields();

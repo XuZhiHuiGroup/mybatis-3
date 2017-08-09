@@ -15,17 +15,17 @@
  */
 package org.apache.ibatis.mapping;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 /**
  * @author Clinton Begin
  */
@@ -50,6 +50,7 @@ public class ResultMapping {
   private boolean lazy;
 
   ResultMapping() {
+      log.debug("ResultMapping()");
   }
 
   public static class Builder {

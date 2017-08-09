@@ -33,6 +33,7 @@ public final class SystemMetaObject {
   public static final MetaObject NULL_META_OBJECT = MetaObject.forObject(NullObject.class, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY, new DefaultReflectorFactory());
 
   private SystemMetaObject() {
+      log.debug("SystemMetaObject()");
     // Prevent Instantiation of Static Class
   }
 
@@ -40,6 +41,7 @@ public final class SystemMetaObject {
   }
 
   public static MetaObject forObject(Object object) {
+      log.debug("forObject({})", object);
     return MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY, new DefaultReflectorFactory());
   }
 

@@ -15,24 +15,14 @@
  */
 package org.apache.ibatis.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
+
+import java.sql.*;
+import java.util.*;
 /**
  * @author Clinton Begin
  */
@@ -47,11 +37,13 @@ public class SqlRunner {
   private boolean useGeneratedKeySupport;
 
   public SqlRunner(Connection connection) {
+      log.debug("SqlRunner({})");
     this.connection = connection;
     this.typeHandlerRegistry = new TypeHandlerRegistry();
   }
 
   public void setUseGeneratedKeySupport(boolean useGeneratedKeySupport) {
+      log.debug("setUseGeneratedKeySupport({})", useGeneratedKeySupport);
     this.useGeneratedKeySupport = useGeneratedKeySupport;
   }
 
@@ -64,6 +56,7 @@ public class SqlRunner {
    * @throws SQLException If less or more than one row is returned
    */
   public Map<String, Object> selectOne(String sql, Object... args) throws SQLException {
+      log.debug("selectOne({},{})", sql, args);
     List<Map<String, Object>> results = selectAll(sql, args);
     if (results.size() != 1) {
       throw new SQLException("Statement returned " + results.size() + " results where exactly one (1) was expected.");
@@ -80,6 +73,7 @@ public class SqlRunner {
    * @throws SQLException If statement preparation or execution fails
    */
   public List<Map<String, Object>> selectAll(String sql, Object... args) throws SQLException {
+      log.debug("selectAll({},{})", sql, args);
     PreparedStatement ps = connection.prepareStatement(sql);
     try {
       setParameters(ps, args);
@@ -103,6 +97,7 @@ public class SqlRunner {
    * @throws SQLException If statement preparation or execution fails
    */
   public int insert(String sql, Object... args) throws SQLException {
+      log.debug("insert({}, {})", sql, args);
     PreparedStatement ps;
     if (useGeneratedKeySupport) {
       ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -149,6 +144,7 @@ public class SqlRunner {
    * @throws SQLException If statement preparation or execution fails
    */
   public int update(String sql, Object... args) throws SQLException {
+      log.debug("update({}, {})", sql, args);
     PreparedStatement ps = connection.prepareStatement(sql);
     try {
       setParameters(ps, args);
@@ -171,6 +167,7 @@ public class SqlRunner {
    * @throws SQLException If statement preparation or execution fails
    */
   public int delete(String sql, Object... args) throws SQLException {
+      log.debug("delete({},{})", sql, args);
     return update(sql, args);
   }
 
@@ -182,6 +179,7 @@ public class SqlRunner {
    * @throws SQLException If statement preparation or execution fails
    */
   public void run(String sql) throws SQLException {
+      log.debug("run({})", sql);
     Statement stmt = connection.createStatement();
     try {
       stmt.execute(sql);
@@ -203,6 +201,7 @@ public class SqlRunner {
   }
 
   private void setParameters(PreparedStatement ps, Object... args) throws SQLException {
+      log.debug("setParameters({},{})", ps, args);
     for (int i = 0, n = args.length; i < n; i++) {
       if (args[i] == null) {
         throw new SQLException("SqlRunner requires an instance of Null to represent typed null values for JDBC compatibility");
@@ -220,6 +219,7 @@ public class SqlRunner {
   }
 
   private List<Map<String, Object>> getResults(ResultSet rs) throws SQLException {
+      log.debug("getResults({})", rs);
     try {
       List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
       List<String> columns = new ArrayList<String>();

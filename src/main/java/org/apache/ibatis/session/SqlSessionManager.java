@@ -15,6 +15,11 @@
  */
 package org.apache.ibatis.session;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.executor.BatchResult;
+import org.apache.ibatis.reflection.ExceptionUtil;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.lang.reflect.InvocationHandler;
@@ -24,11 +29,6 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.executor.BatchResult;
-import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * @author Larry Meadors
@@ -43,12 +43,12 @@ public class SqlSessionManager implements SqlSessionFactory, SqlSession {
   private ThreadLocal<SqlSession> localSqlSession = new ThreadLocal<SqlSession>();
 
   private SqlSessionManager(SqlSessionFactory sqlSessionFactory) {
+      log.debug("SqlSessionManager({})", sqlSessionFactory);
     this.sqlSessionFactory = sqlSessionFactory;
     this.sqlSessionProxy = (SqlSession) Proxy.newProxyInstance(
         SqlSessionFactory.class.getClassLoader(),
         new Class[]{SqlSession.class},
         new SqlSessionInterceptor());
-    log.debug("SqlSessionManager init [{}]", this);
   }
 
   public static SqlSessionManager newInstance(Reader reader) {

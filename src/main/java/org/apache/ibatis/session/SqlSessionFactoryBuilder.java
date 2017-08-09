@@ -15,17 +15,17 @@
  */
 package org.apache.ibatis.session;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.util.Properties;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.xml.XMLConfigBuilder;
 import org.apache.ibatis.exceptions.ExceptionFactory;
 import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.Properties;
 /*
  * Builds {@link SqlSession} instances.
  *
@@ -51,10 +51,9 @@ public class SqlSessionFactoryBuilder {
     }
 
     public SqlSessionFactory build(Reader reader, String environment, Properties properties) {
+        log.debug("build({},{},{})", reader, environment, properties);
         try {
-            log.debug("SqlSessionFactory build with environment[{}] and properties[{}]", environment, properties);
             XMLConfigBuilder parser = new XMLConfigBuilder(reader, environment, properties);
-            log.debug("XMLConfigBuilder build with environment[{}] and properties[{}], return result[{}]", environment, properties, parser);
             return build(parser.parse());
         } catch (Exception e) {
             throw ExceptionFactory.wrapException("Error building SqlSession.", e);
@@ -81,6 +80,7 @@ public class SqlSessionFactoryBuilder {
     }
 
     public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+        log.debug("build({},{},{})", inputStream, environment, properties);
         try {
             XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
             return build(parser.parse());

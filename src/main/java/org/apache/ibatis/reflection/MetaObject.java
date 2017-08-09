@@ -15,20 +15,16 @@
  */
 package org.apache.ibatis.reflection;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.reflection.factory.ObjectFactory;
+import org.apache.ibatis.reflection.property.PropertyTokenizer;
+import org.apache.ibatis.reflection.wrapper.*;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-
-import org.apache.ibatis.reflection.factory.ObjectFactory;
-import org.apache.ibatis.reflection.property.PropertyTokenizer;
-import org.apache.ibatis.reflection.wrapper.BeanWrapper;
-import org.apache.ibatis.reflection.wrapper.CollectionWrapper;
-import org.apache.ibatis.reflection.wrapper.MapWrapper;
-import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
-import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
 /**
  * @author Clinton Begin
  */
@@ -36,134 +32,154 @@ import lombok.ToString;
 @ToString
 public class MetaObject {
 
-  private Object originalObject;
-  private ObjectWrapper objectWrapper;
-  private ObjectFactory objectFactory;
-  private ObjectWrapperFactory objectWrapperFactory;
-  private ReflectorFactory reflectorFactory;
+    private Object originalObject;
+    private ObjectWrapper objectWrapper;
+    private ObjectFactory objectFactory;
+    private ObjectWrapperFactory objectWrapperFactory;
+    private ReflectorFactory reflectorFactory;
 
-  private MetaObject(Object object, ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory, ReflectorFactory reflectorFactory) {
-    this.originalObject = object;
-    this.objectFactory = objectFactory;
-    this.objectWrapperFactory = objectWrapperFactory;
-    this.reflectorFactory = reflectorFactory;
+    private MetaObject(Object object, ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory, ReflectorFactory reflectorFactory) {
+        log.debug("MetaObject({},{},{},{})", object, objectFactory, objectWrapperFactory, reflectorFactory);
+        this.originalObject = object;
+        this.objectFactory = objectFactory;
+        this.objectWrapperFactory = objectWrapperFactory;
+        this.reflectorFactory = reflectorFactory;
 
-    if (object instanceof ObjectWrapper) {
-      this.objectWrapper = (ObjectWrapper) object;
-    } else if (objectWrapperFactory.hasWrapperFor(object)) {
-      this.objectWrapper = objectWrapperFactory.getWrapperFor(this, object);
-    } else if (object instanceof Map) {
-      this.objectWrapper = new MapWrapper(this, (Map) object);
-    } else if (object instanceof Collection) {
-      this.objectWrapper = new CollectionWrapper(this, (Collection) object);
-    } else {
-      this.objectWrapper = new BeanWrapper(this, object);
-    }
-  }
-
-  public static MetaObject forObject(Object object, ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory, ReflectorFactory reflectorFactory) {
-    if (object == null) {
-      return SystemMetaObject.NULL_META_OBJECT;
-    } else {
-      return new MetaObject(object, objectFactory, objectWrapperFactory, reflectorFactory);
-    }
-  }
-
-  public ObjectFactory getObjectFactory() {
-    return objectFactory;
-  }
-
-  public ObjectWrapperFactory getObjectWrapperFactory() {
-    return objectWrapperFactory;
-  }
-
-  public ReflectorFactory getReflectorFactory() {
-	return reflectorFactory;
-  }
-
-  public Object getOriginalObject() {
-    return originalObject;
-  }
-
-  public String findProperty(String propName, boolean useCamelCaseMapping) {
-    return objectWrapper.findProperty(propName, useCamelCaseMapping);
-  }
-
-  public String[] getGetterNames() {
-    return objectWrapper.getGetterNames();
-  }
-
-  public String[] getSetterNames() {
-    return objectWrapper.getSetterNames();
-  }
-
-  public Class<?> getSetterType(String name) {
-    return objectWrapper.getSetterType(name);
-  }
-
-  public Class<?> getGetterType(String name) {
-    return objectWrapper.getGetterType(name);
-  }
-
-  public boolean hasSetter(String name) {
-    return objectWrapper.hasSetter(name);
-  }
-
-  public boolean hasGetter(String name) {
-    return objectWrapper.hasGetter(name);
-  }
-
-  public Object getValue(String name) {
-    PropertyTokenizer prop = new PropertyTokenizer(name);
-    if (prop.hasNext()) {
-      MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());
-      if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
-        return null;
-      } else {
-        return metaValue.getValue(prop.getChildren());
-      }
-    } else {
-      return objectWrapper.get(prop);
-    }
-  }
-
-  public void setValue(String name, Object value) {
-    PropertyTokenizer prop = new PropertyTokenizer(name);
-    if (prop.hasNext()) {
-      MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());
-      if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
-        if (value == null && prop.getChildren() != null) {
-          // don't instantiate child path if value is null
-          return;
+        if (object instanceof ObjectWrapper) {
+            this.objectWrapper = (ObjectWrapper) object;
+        } else if (objectWrapperFactory.hasWrapperFor(object)) {
+            this.objectWrapper = objectWrapperFactory.getWrapperFor(this, object);
+        } else if (object instanceof Map) {
+            this.objectWrapper = new MapWrapper(this, (Map) object);
+        } else if (object instanceof Collection) {
+            this.objectWrapper = new CollectionWrapper(this, (Collection) object);
         } else {
-          metaValue = objectWrapper.instantiatePropertyValue(name, prop, objectFactory);
+            this.objectWrapper = new BeanWrapper(this, object);
         }
-      }
-      metaValue.setValue(prop.getChildren(), value);
-    } else {
-      objectWrapper.set(prop, value);
     }
-  }
 
-  public MetaObject metaObjectForProperty(String name) {
-    Object value = getValue(name);
-    return MetaObject.forObject(value, objectFactory, objectWrapperFactory, reflectorFactory);
-  }
+    public static MetaObject forObject(Object object, ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory, ReflectorFactory reflectorFactory) {
+        log.debug("forObject({}, {}, {}, {})", object, objectFactory, objectWrapperFactory, reflectorFactory);
+        if (object == null) {
+            return SystemMetaObject.NULL_META_OBJECT;
+        } else {
+            return new MetaObject(object, objectFactory, objectWrapperFactory, reflectorFactory);
+        }
+    }
 
-  public ObjectWrapper getObjectWrapper() {
-    return objectWrapper;
-  }
+    public ObjectFactory getObjectFactory() {
+        log.debug("getObjectFactory()");
+        return objectFactory;
+    }
 
-  public boolean isCollection() {
-    return objectWrapper.isCollection();
-  }
+    public ObjectWrapperFactory getObjectWrapperFactory() {
+        log.debug("getObjectWrapperFactory()");
+        return objectWrapperFactory;
+    }
 
-  public void add(Object element) {
-    objectWrapper.add(element);
-  }
+    public ReflectorFactory getReflectorFactory() {
+        log.debug("getReflectorFactory()");
+        return reflectorFactory;
+    }
 
-  public <E> void addAll(List<E> list) {
-    objectWrapper.addAll(list);
-  }
+    public Object getOriginalObject() {
+        log.debug("getOriginalObject()");
+        return originalObject;
+    }
+
+    public String findProperty(String propName, boolean useCamelCaseMapping) {
+        log.debug("findProperty({}, {})", propName, useCamelCaseMapping);
+        return objectWrapper.findProperty(propName, useCamelCaseMapping);
+    }
+
+    public String[] getGetterNames() {
+        log.debug("getGetterNames()");
+        return objectWrapper.getGetterNames();
+    }
+
+    public String[] getSetterNames() {
+        log.debug("getSetterNames()");
+        return objectWrapper.getSetterNames();
+    }
+
+    public Class<?> getSetterType(String name) {
+        log.debug("getSetterType({})", name);
+        return objectWrapper.getSetterType(name);
+    }
+
+    public Class<?> getGetterType(String name) {
+        log.debug("getGetterType({})", name);
+        return objectWrapper.getGetterType(name);
+    }
+
+    public boolean hasSetter(String name) {
+        log.debug("hasSetter({})", name);
+        return objectWrapper.hasSetter(name);
+    }
+
+    public boolean hasGetter(String name) {
+        log.debug("hasGetter({})", name);
+        return objectWrapper.hasGetter(name);
+    }
+
+    public Object getValue(String name) {
+        log.debug("getValue({}", name);
+        PropertyTokenizer prop = new PropertyTokenizer(name);
+        if (prop.hasNext()) {
+            MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());
+            if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+                return null;
+            } else {
+                return metaValue.getValue(prop.getChildren());
+            }
+        } else {
+            return objectWrapper.get(prop);
+        }
+    }
+
+    public void setValue(String name, Object value) {
+        log.debug("setValue({},{})", name, value);
+        PropertyTokenizer prop = new PropertyTokenizer(name);
+        if (prop.hasNext()) {
+            MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());
+            if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
+                if (value == null && prop.getChildren() != null) {
+                    // don't instantiate child path if value is null
+                    return;
+                } else {
+                    metaValue = objectWrapper.instantiatePropertyValue(name, prop, objectFactory);
+                }
+            }
+            metaValue.setValue(prop.getChildren(), value);
+        } else {
+            objectWrapper.set(prop, value);
+        }
+    }
+
+    public MetaObject metaObjectForProperty(String name) {
+        log.debug("metaObjectForProperty({})", name);
+        Object value = getValue(name);
+        return MetaObject.forObject(value, objectFactory, objectWrapperFactory, reflectorFactory);
+    }
+
+    public ObjectWrapper getObjectWrapper() {
+        log.debug("getObjectWrapper()");
+        return objectWrapper;
+    }
+
+    public boolean isCollection() {
+        log.debug("isCollection()");
+        return objectWrapper.isCollection();
+    }
+
+    public void add(Object element) {
+        log.debug("add({})", element);
+        objectWrapper.add(element);
+    }
+
+    public <E> void addAll(List<E> list) {
+        log.debug("addAll({})", list);
+        objectWrapper.addAll(list);
+    }
 
 }

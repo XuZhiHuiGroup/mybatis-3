@@ -15,12 +15,12 @@
  */
 package org.apache.ibatis.mapping;
 
-import java.util.Collections;
-import java.util.Map;
-
-import org.apache.ibatis.session.Configuration;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.Configuration;
+
+import java.util.Collections;
+import java.util.Map;
 /**
  * @author Clinton Begin
  */
@@ -32,6 +32,7 @@ public class Discriminator {
   private Map<String, String> discriminatorMap;
 
   Discriminator() {
+      log.debug("Discriminator()");
   }
 
   public static class Builder {
