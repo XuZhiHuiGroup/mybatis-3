@@ -15,19 +15,17 @@
  */
 package org.apache.ibatis.mapping;
 
+import lombok.ToString;
+import org.apache.ibatis.executor.BaseExecutor;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import org.apache.ibatis.executor.BaseExecutor;
-import org.apache.ibatis.logging.Log;
-import org.apache.ibatis.logging.LogFactory;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
 
 /**
  * Vendor DatabaseId provider
@@ -40,7 +38,6 @@ import lombok.ToString;
  *
  * @author Eduardo Macarron
  */
-@Slf4j
 @ToString
 public class VendorDatabaseIdProvider implements DatabaseIdProvider {
 
