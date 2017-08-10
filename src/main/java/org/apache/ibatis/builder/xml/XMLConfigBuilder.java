@@ -100,9 +100,9 @@ public class XMLConfigBuilder extends BaseBuilder {
 
     private void parseConfiguration(XNode root) {
         try {
+            Properties settings = settingsAsPropertiess(root.evalNode("settings"));
             //issue #117 read properties first
             propertiesElement(root.evalNode("properties"));
-            Properties settings = settingsAsProperties(root.evalNode("settings"));
             loadCustomVfs(settings);
             typeAliasesElement(root.evalNode("typeAliases"));
             pluginElement(root.evalNode("plugins"));
@@ -111,16 +111,16 @@ public class XMLConfigBuilder extends BaseBuilder {
             reflectionFactoryElement(root.evalNode("reflectionFactory"));
             settingsElement(settings);
             // read it after objectFactory and objectWrapperFactory issue #631
+            environmentsElement(root.evalNode("environments"));
             databaseIdProviderElement(root.evalNode("databaseIdProvider"));
             typeHandlerElement(root.evalNode("typeHandlers"));
             mapperElement(root.evalNode("mappers"));
-            log.debug("{}", configuration);
         } catch (Exception e) {
             throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
         }
     }
 
-    private Properties settingsAsProperties(XNode context) {
+    private Properties settingsAsPropertiess(XNode context) {
         if (context == null) {
             return new Properties();
         }
