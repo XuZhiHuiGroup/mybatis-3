@@ -18,21 +18,23 @@ package org.apache.ibatis.builder;
 import org.apache.ibatis.cache.Cache;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Clinton Begin
  */
 @Slf4j
 @ToString
 public class CacheRefResolver {
-  private final MapperBuilderAssistant assistant;
-  private final String cacheRefNamespace;
+    private final MapperBuilderAssistant assistant;
+    private final String cacheRefNamespace;
 
-  public CacheRefResolver(MapperBuilderAssistant assistant, String cacheRefNamespace) {
-    this.assistant = assistant;
-    this.cacheRefNamespace = cacheRefNamespace;
-  }
+    public CacheRefResolver(MapperBuilderAssistant assistant, String cacheRefNamespace) {
+        log.debug("CacheRefResolver({},{})", assistant, cacheRefNamespace);
+        this.assistant = assistant;
+        this.cacheRefNamespace = cacheRefNamespace;
+    }
 
-  public Cache resolveCacheRef() {
-    return assistant.useCacheRef(cacheRefNamespace);
-  }
+    public Cache resolveCacheRef() {
+        return assistant.useCacheRef(cacheRefNamespace);
+    }
 }

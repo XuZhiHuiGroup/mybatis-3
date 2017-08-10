@@ -15,15 +15,16 @@
  */
 package org.apache.ibatis.binding;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.reflection.ExceptionUtil;
+import org.apache.ibatis.session.SqlSession;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.apache.ibatis.reflection.ExceptionUtil;
-import org.apache.ibatis.session.SqlSession;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
@@ -32,37 +33,40 @@ import lombok.ToString;
 @ToString
 public class MapperProxy<T> implements InvocationHandler, Serializable {
 
-  private static final long serialVersionUID = -6424540398559729838L;
-  private final SqlSession sqlSession;
-  private final Class<T> mapperInterface;
-  private final Map<Method, MapperMethod> methodCache;
+    private static final long serialVersionUID = -6424540398559729838L;
+    private final SqlSession sqlSession;
+    private final Class<T> mapperInterface;
+    private final Map<Method, MapperMethod> methodCache;
 
-  public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface, Map<Method, MapperMethod> methodCache) {
-    this.sqlSession = sqlSession;
-    this.mapperInterface = mapperInterface;
-    this.methodCache = methodCache;
-  }
-
-  @Override
-  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    if (Object.class.equals(method.getDeclaringClass())) {
-      try {
-        return method.invoke(this, args);
-      } catch (Throwable t) {
-        throw ExceptionUtil.unwrapThrowable(t);
-      }
+    public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface, Map<Method, MapperMethod> methodCache) {
+        log.debug("MapperProxy({},{},{})", sqlSession, mapperInterface, methodCache);
+        this.sqlSession = sqlSession;
+        this.mapperInterface = mapperInterface;
+        this.methodCache = methodCache;
     }
-    final MapperMethod mapperMethod = cachedMapperMethod(method);
-    return mapperMethod.execute(sqlSession, args);
-  }
 
-  private MapperMethod cachedMapperMethod(Method method) {
-    MapperMethod mapperMethod = methodCache.get(method);
-    if (mapperMethod == null) {
-      mapperMethod = new MapperMethod(mapperInterface, method, sqlSession.getConfiguration());
-      methodCache.put(method, mapperMethod);
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        log.debug("invoke({},{},{})", proxy, method, args);
+        if (Object.class.equals(method.getDeclaringClass())) {
+            try {
+                return method.invoke(this, args);
+            } catch (Throwable t) {
+                throw ExceptionUtil.unwrapThrowable(t);
+            }
+        }
+        final MapperMethod mapperMethod = cachedMapperMethod(method);
+        return mapperMethod.execute(sqlSession, args);
     }
-    return mapperMethod;
-  }
+
+    private MapperMethod cachedMapperMethod(Method method) {
+        log.debug("cachedMapperMethod({})", method);
+        MapperMethod mapperMethod = methodCache.get(method);
+        if (mapperMethod == null) {
+            mapperMethod = new MapperMethod(mapperInterface, method, sqlSession.getConfiguration());
+            methodCache.put(method, mapperMethod);
+        }
+        return mapperMethod;
+    }
 
 }

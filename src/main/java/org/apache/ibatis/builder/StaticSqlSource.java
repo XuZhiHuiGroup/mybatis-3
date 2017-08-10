@@ -15,14 +15,15 @@
  */
 package org.apache.ibatis.builder;
 
-import java.util.List;
-
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.session.Configuration;
-import lombok.extern.slf4j.Slf4j;
-import lombok.ToString;
+
+import java.util.List;
+
 /**
  * @author Clinton Begin
  */
@@ -30,23 +31,26 @@ import lombok.ToString;
 @ToString
 public class StaticSqlSource implements SqlSource {
 
-  private String sql;
-  private List<ParameterMapping> parameterMappings;
-  private Configuration configuration;
+    private String sql;
+    private List<ParameterMapping> parameterMappings;
+    private Configuration configuration;
 
-  public StaticSqlSource(Configuration configuration, String sql) {
-    this(configuration, sql, null);
-  }
+    public StaticSqlSource(Configuration configuration, String sql) {
+        this(configuration, sql, null);
+        log.debug("StaticSqlSource({},{})", configuration, sql);
+    }
 
-  public StaticSqlSource(Configuration configuration, String sql, List<ParameterMapping> parameterMappings) {
-    this.sql = sql;
-    this.parameterMappings = parameterMappings;
-    this.configuration = configuration;
-  }
+    public StaticSqlSource(Configuration configuration, String sql, List<ParameterMapping> parameterMappings) {
+        log.debug("StaticSqlSource({},{},{})", configuration, sql, parameterMappings);
+        this.sql = sql;
+        this.parameterMappings = parameterMappings;
+        this.configuration = configuration;
+    }
 
-  @Override
-  public BoundSql getBoundSql(Object parameterObject) {
-    return new BoundSql(configuration, sql, parameterMappings, parameterObject);
-  }
+    @Override
+    public BoundSql getBoundSql(Object parameterObject) {
+        log.debug("getBoundSql({})", parameterObject);
+        return new BoundSql(configuration, sql, parameterMappings, parameterObject);
+    }
 
 }

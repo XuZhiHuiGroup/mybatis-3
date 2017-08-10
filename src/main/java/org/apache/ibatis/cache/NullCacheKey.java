@@ -15,9 +15,12 @@
  */
 package org.apache.ibatis.cache;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Clinton Begin
  */
+@Slf4j
 public final class NullCacheKey extends CacheKey {
 
   private static final long serialVersionUID = 3704229911977019465L;
@@ -33,6 +36,7 @@ public final class NullCacheKey extends CacheKey {
 
   @Override
   public void updateAll(Object[] objects) {
+      log.debug("updateAll({})", objects);
     throw new CacheException("Not allowed to update a NullCacheKey instance.");
   }
 }
