@@ -87,9 +87,11 @@ public class XMLConfigBuilder extends BaseBuilder {
         this.parsed = false;
         this.environment = environment;
         this.parser = parser;
+        log.debug("XMLConfigBuilder({},{},{})",parser, environment, props);
     }
 
     public Configuration parse() {
+        log.debug("parse()");
         if (parsed) {
             throw new BuilderException("Each XMLConfigBuilder can only be used once.");
         }
@@ -99,6 +101,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
     private void parseConfiguration(XNode root) {
+        log.debug("parseConfiguration({})", root);
         try {
             Properties settings = settingsAsPropertiess(root.evalNode("settings"));
             //issue #117 read properties first
@@ -121,6 +124,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
     private Properties settingsAsPropertiess(XNode context) {
+        log.debug("settingsAsPropertiess({})", context);
         if (context == null) {
             return new Properties();
         }
@@ -136,6 +140,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
     private void loadCustomVfs(Properties props) throws ClassNotFoundException {
+        log.debug("loadCustomVfs({})", props);
         String value = props.getProperty("vfsImpl");
         if (value != null) {
             String[] clazzes = value.split(",");

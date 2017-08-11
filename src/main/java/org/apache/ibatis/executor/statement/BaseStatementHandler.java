@@ -118,6 +118,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
     }
 
     protected void setFetchSize(Statement stmt) throws SQLException {
+        log.debug("setFetchSize({})", stmt);
         Integer fetchSize = mappedStatement.getFetchSize();
         if (fetchSize != null) {
             stmt.setFetchSize(fetchSize);
@@ -130,6 +131,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
     }
 
     protected void closeStatement(Statement statement) {
+        log.debug("closeStatement({})", statement);
         try {
             if (statement != null) {
                 statement.close();
@@ -140,6 +142,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
     }
 
     protected void generateKeys(Object parameter) {
+        log.debug("generateKeys({})", parameter);
         KeyGenerator keyGenerator = mappedStatement.getKeyGenerator();
         ErrorContext.instance().store();
         keyGenerator.processBefore(executor, mappedStatement, null, parameter);
